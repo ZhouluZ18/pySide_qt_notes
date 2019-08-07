@@ -3,7 +3,6 @@ import pymel.core as pm
 from PySide2 import QtCore
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
-import traceback
 
 
 def maya_main_weindow():
@@ -12,13 +11,11 @@ def maya_main_weindow():
 
 
 class TestUi(QtWidgets.QDialog):
-    
-    test_signal = QtCore.Signal()  # ×Ô¶¨ÒåĞÅºÅ
+
+    test_signal = QtCore.Signal()  # è‡ªå®šä¹‰ä¿¡å·
 
     def __init__(self, parent=maya_main_weindow()):
         super(TestUi, self).__init__(parent)
-    
-        
 
     def create(self):
         '''
@@ -26,12 +23,11 @@ class TestUi(QtWidgets.QDialog):
         '''
         self.setWindowTitle('TestUi')
         self.setWindowFlags(QtCore.Qt.Tool)
-        
+
         self.create_controls()
         self.create_layout()
         self.create_connections()
-    
-    
+
     def create_controls(self):
         self.push_button = QtWidgets.QPushButton('btn01')
         self.check_box_01 = QtWidgets.QCheckBox('check_box01')
@@ -44,27 +40,27 @@ class TestUi(QtWidgets.QDialog):
                                 'item_04'])
         self.list_wdg.setCurrentRow(0)
         self.list_wdg.setMaximumHeight(60)
-        
+
     def create_layout(self):
         check_box_layout = QtWidgets.QHBoxLayout()
         check_box_layout.setContentsMargins(2, 2, 2, 2)
         check_box_layout.addWidget(self.check_box_01)
         check_box_layout.addWidget(self.check_box_02)
-        
+
         main_layout = QtWidgets.QVBoxLayout()
         main_layout.setContentsMargins(6, 6, 6, 6)
-        
+
         main_layout.addWidget(self.push_button)
         main_layout.addLayout(check_box_layout)
-        
+
         main_layout.addWidget(self.line_edit)
         main_layout.addWidget(self.list_wdg)
         main_layout.addStretch()
-        
+
         self.setLayout(main_layout)
-        
+
     def create_connections(self):
-        
+
         self.push_button.clicked.connect(self.on_button_pressed)
         self.check_box_01.toggled.connect(self.on_check_box_toggled)
         self.check_box_02.toggled. connect(self.on_check_box_toggled)
@@ -72,33 +68,32 @@ class TestUi(QtWidgets.QDialog):
         self.line_edit.editingFinished.connect(self.on_text_changed)
         self.list_wdg.currentItemChanged.connect(self.on_selection_changed)
         self.test_signal.connect(self.on_test_signal_emitted)
-        
-    
+
     def on_button_pressed(self):
         print('Button_pressed')
-        
+
         if self.line_edit.text() == 'text_xinhao':
             self.test_signal.emit()
-        
+
     def on_check_box_toggled(self):
         # print('chebox_toggled')
-        sender = self.sender()  # ÏûÏ¢·¢ËÍÕß£¬ÏûÏ¢·´À¡
+        sender = self.sender()  # æ¶ˆæ¯å‘é€è€…ï¼Œæ¶ˆæ¯åé¦ˆ
         print('{} toggled'. format(sender.text()))
-        
+
     def on_text_changed(self):
         print('test_changed')
-    
+
     def on_selection_changed(self, current, previous):
         print('selection_changed')
-        print('current item: {}'.format(current.text()))  # ·´À¡ÉÏÒ»¸öÑ¡ÔñÎïÌåÃû
-        print('previous item: {}'.format(previous.text()))  # µ±Ç°ÎïÌåÃû
-    
+        print('current item: {}'.format(current.text()))  # åé¦ˆä¸Šä¸€ä¸ªé€‰æ‹©ç‰©ä½“å
+        print('previous item: {}'.format(previous.text()))  # å½“å‰ç‰©ä½“å
+
     def on_test_signal_emitted(self):
         print ('siggnal_received')
 
-              
+
 if __name__ == "__main__":
-    
+    test_ui = TestUi()
     try:
         test_ui.close()
     except:
@@ -106,4 +101,3 @@ if __name__ == "__main__":
     test_ui = TestUi()
     test_ui.create()
     test_ui.show()
-        
