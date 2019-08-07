@@ -7,6 +7,7 @@ import maya.OpenMaya as om
 import pymel.core as pm
 import maya.cmds as cmds
 
+
 def maya_main_weindow():
     main_window_ptr = omui.MQtUtil.mainWindow()
     return wrapInstance(long(main_window_ptr), QtWidgets.QWidget)
@@ -14,7 +15,7 @@ def maya_main_weindow():
 
 class openImportWin(QtWidgets.QDialog):
 
-    # Ä¬ÈÏ¹ıÂËÆ÷
+    # é»˜è®¤è¿‡æ»¤å™¨
     FILE_FILTERS = 'Maya (*.ma *.mb);;Maya ASCII (*.ma);;Maya Binary (*.mb);;ALL Files (*.*)'
     selected_filter = 'Maya (*.ma *.mb)'
 
@@ -32,8 +33,8 @@ class openImportWin(QtWidgets.QDialog):
     def create_widgets(self):
         self.fileoath_le = QtWidgets.QLineEdit()
         self.select_file_path_btn = QtWidgets.QPushButton()
-        self.select_file_path_btn.setIcon(QtGui.QIcon(':fileOpen.png'))  # °´Å¥Í¼±êµÄÌí¼Ó
-        self.select_file_path_btn.setToolTip('select_file')  # °´Å¥¹¦ÄÜÌáÊ¾
+        self.select_file_path_btn.setIcon(QtGui.QIcon(':fileOpen.png'))  # æŒ‰é’®å›¾æ ‡çš„æ·»åŠ 
+        self.select_file_path_btn.setToolTip('select_file')  # æŒ‰é’®åŠŸèƒ½æç¤º
 
         self.open_rb = QtWidgets.QRadioButton('Open')
         self.open_rb.setChecked(True)
@@ -74,7 +75,7 @@ class openImportWin(QtWidgets.QDialog):
         self.close_btn.clicked.connect(self.close)
 
     def show_file_select_dialog(self):
-        # ´ò¿ªÒ»¸ö´°¿Ú»ñÈ¡Â·¾¶£¬¹ıÂËÆ÷µÄÊ¹ÓÃ
+        # æ‰“å¼€ä¸€ä¸ªçª—å£è·å–è·¯å¾„ï¼Œè¿‡æ»¤å™¨çš„ä½¿ç”¨
         file_paht, self.selected_filter = QtWidgets.QFileDialog.getOpenFileName(self, 'select_file', '', self.FILE_FILTERS, self.selected_filter)
         if file_paht:
             self.fileoath_le.setText(file_paht)
@@ -90,14 +91,14 @@ class openImportWin(QtWidgets.QDialog):
         if not file_info.exists():
             om.MGlobal.displayError('File does not exist : {}'.format(file_path))
             return
-        
+
         if self.open_rb.isChecked():
             self.open_file(file_path)
         elif self.import_rb.isChecked():
             self.import_file(file_path)
         else:
             self.reference_file(file_path)
-        
+
     def open_file(self, file_path):
         force = self.force_cb.isChecked()
         if not force and cmds.file(q=True, modified=True):
@@ -105,11 +106,11 @@ class openImportWin(QtWidgets.QDialog):
             if result == QtWidgets.QMessageBox.StandardButton.Yes:
                 force = True
         cmds.file(file_path, open=True, ignoreVersion=True, force=force)
-        
-    
+
+
     def import_file(self, file_path):
         cmds.file(file_path, i=True, ignoreVersion=True)
-    
+
     def reference_file(self, file_path):
         cmds.file(file_path, reference=True, ignoreVersion=True)
 
