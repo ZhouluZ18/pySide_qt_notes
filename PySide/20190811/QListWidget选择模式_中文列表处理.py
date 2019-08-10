@@ -1,4 +1,4 @@
-'''# -*- coding: UTF-8 -*-'''
+# -*- coding: UTF-8 -*-
 from PySide2 import QtCore
 from PySide2 import QtGui
 from PySide2 import QtWidgets
@@ -19,7 +19,7 @@ class MultList_widgets_win(QtWidgets.QDialog):
     def __init__(self, parent=maya_main_weindow()):
         super(MultList_widgets_win, self).__init__(parent)
 
-        self.setWindowTitle(u'多选QListWidget_窗口测试')
+        self.setWindowTitle(u'澶氶�塓ListWidget_绐楀彛娴嬭瘯')
         self.setMinimumSize(300, 80)
         self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
         self.create_widgets()
@@ -28,10 +28,10 @@ class MultList_widgets_win(QtWidgets.QDialog):
 
     def create_widgets(self):
         self.list_widgets = QtWidgets.QListWidget()
-        self.list_widgets.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)  # ContiguousSelection,MultiSelection(选择模式切换)
-        self.list_widgets.addItems([u'元素1', u'元素2', u'元素3', u'元素4', u'元素5', u'元素6'])
+        self.list_widgets.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)  # ContiguousSelection,MultiSelection(閫夋嫨妯″紡鍒囨崲)
+        self.list_widgets.addItems([u'鍏冪礌1', u'鍏冪礌2', u'鍏冪礌3', u'鍏冪礌4', u'鍏冪礌5', u'鍏冪礌6'])
 
-        self.AAA_btn = QtWidgets.QPushButton(u'关闭')
+        self.AAA_btn = QtWidgets.QPushButton(u'鍏抽棴')
 
     def create_layout(self):
         button_layout = QtWidgets.QHBoxLayout()
@@ -39,14 +39,14 @@ class MultList_widgets_win(QtWidgets.QDialog):
         button_layout.addWidget(self.AAA_btn)
 
         main_layout = QtWidgets.QVBoxLayout(self)
-        main_layout.setContentsMargins(2, 2, 2, 2)  # 设置边框间距
-        main_layout.setSpacing(2)  # 设置控件间距
+        main_layout.setContentsMargins(2, 2, 2, 2)  # 璁剧疆杈规闂磋窛
+        main_layout.setSpacing(2)  # 璁剧疆鎺т欢闂磋窛
 
         main_layout.addWidget(self.list_widgets)
         main_layout.addLayout(button_layout)
 
     def create_connections(self):
-        
+
         self.AAA_btn.clicked.connect(self.close)
 
         self.list_widgets.itemClicked.connect(self.print_select_yuansu)
@@ -58,7 +58,7 @@ class MultList_widgets_win(QtWidgets.QDialog):
         for item in items:
             select_labels.append(item.text())
 
-        pm.displayInfo(u'选择的元素为：{}'.format(' '.join([select_label for select_label in select_labels])))
+        pm.displayInfo(u'閫夋嫨鐨勫厓绱犱负锛歿}'.format(' '.join([select_label for select_label in select_labels])))
 
 if __name__ == "__main__":
     try:
